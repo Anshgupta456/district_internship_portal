@@ -8,6 +8,8 @@ import Dashboard from './pages/Dashboard';
 import Jobs from './pages/Jobs';
 import Header from './components/Header';
 import GovRegister from './pages/GovRegister';
+import govResTracker from './pages/govResTracker';
+import UniRegister from './pages/UniRegister';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/jobs" component={Jobs} />
         <Route path="/GovRegister" component={GovRegister} />
+        <Route path="/govResTracker" component={govResTracker} />
+        <Route path="/UniRegister" component={UniRegister} />
       </Switch>
     </Router>
   );

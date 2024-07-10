@@ -13,11 +13,11 @@ function Navbar() {
         <ul className="navbar-menu">
           <li className="navbar-item"><Link to="/">Home</Link></li>
           <li className="navbar-item"><Link to="./Jobs">Jobs</Link></li>
-          <li className="navbar-item"><Link to="./Login">Login</Link></li>
-          <li className="navbar-item"><Link to="./Register">Register</Link></li>
           <li className="navbar-item"><Link to="./Dashboard">Dashboard</Link></li>
         </ul>
         <div className="navbar-toggle">
+          <Link to="./Login">Login</Link>
+          <Link to="./Register">Register</Link>
           <a href="#toggle">English</a> | <a href="#toggle">हिंदी</a>
         </div>
       </div>

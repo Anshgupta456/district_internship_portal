@@ -1,23 +1,48 @@
-useEffect(() => {
-    const fetchJobs = async () => {
-      const res = await axios.get('/api/jobs');
-      setJobs(res.data);
-    };
+/* src/RegisterForm.css */
 
-    fetchJobs();
-  }, []);
 
-<div>
-      <h2>Job Opportunities</h2>
-      {jobs.map(job => (
-        <div key={job._id}>
-          <h3>{job.title}</h3>
-          <p>{job.description}</p>
-          <p>Eligibility: {job.eligibilityCriteria}</p>
-          <p>Stipend: {job.stipend}</p>
-          <p>Openings: {job.openings}</p>
-          <p>Location: {job.location}</p>
-          <button>Apply</button>
-        </div>
-      ))}
-    </div>
+
+
+
+
+
+.Register {
+    margin: 20px auto;
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    width: 50%;
+    height: 100%;
+  }
+  
+  .Register form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .Register label {
+    margin-bottom: 10px;
+  }
+  
+  .Register input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .Register button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+  }
+
+.keepcenter {
+  text-align: center;
+}
+  

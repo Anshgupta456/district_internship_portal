@@ -1,0 +1,36 @@
+.responses-table-container {
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
+  }
+  
+  .responses-table-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  tbody tr:hover {
+    background-color: #f1f1f1;
+  }
+
+.link{
+    text-align: center;
+    text-decoration-line: underline;
+    text-decoration-color: blue;
+    color: blue;
+}
+  

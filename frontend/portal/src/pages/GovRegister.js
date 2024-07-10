@@ -23,18 +23,21 @@ function Register({ history }) {
   };
 
   return (
-    <div className="Register">
+    <div className="register-container">
       <h2>Register</h2>
       <form onSubmit={handleSubmit}>
-        <label>Department Name
-            <input
-                type="text"
-                placeholder="Enter your Department's Name"
-                value={designation}
-                onChange={(e) => setdesignation(e.target.value)}
-            />
-        </label>
-        
+        <div className="form-group">
+          <label>Department Name
+              <input
+                  type="text"
+                  placeholder="Enter your Department's Name"
+                  value={designation}
+                  onChange={(e) => setdesignation(e.target.value)}
+              />
+          </label>
+        </div>
+
+      <div className="form-group">  
         <label>Officer's Name
           <input
             type="text"
@@ -43,7 +46,9 @@ function Register({ history }) {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
-        
+      </div>
+
+      <div className="form-group"> 
         <label>Designation
             <input
                 type="text"
@@ -52,7 +57,8 @@ function Register({ history }) {
                 onChange={(e) => setGDepartment(e.target.value)}
             />
         </label>
-
+      </div>
+      <div className="form-group">
         <label>E-Mail ID
           <input
             type="email"
@@ -61,7 +67,8 @@ function Register({ history }) {
             onChange={(e) => setEmail(e.target.value)}
           />
         </label>
-
+      </div>
+      <div className="form-group">
         <label>Contact Number
           <input
             type="number"
@@ -70,7 +77,8 @@ function Register({ history }) {
             onChange={(e) => setphone(e.target.value)}
           />
         </label>
-        
+      </div>
+      <div className="form-group">
         <label>Password
           <input
             type="password"
@@ -79,7 +87,8 @@ function Register({ history }) {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-
+      </div>
+      <div className="form-group">
         <label>
           Captcha
           <input
@@ -88,6 +97,7 @@ function Register({ history }) {
             onChange={(e) => setCaptcha(e.target.value)}
           />
         </label>
+      </div>
         <button type="submit">Register</button>
       </form>
     </div>
