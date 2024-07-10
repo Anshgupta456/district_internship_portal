@@ -1,34 +1,105 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import '../styles/Register.css';
 
-function Jobs() {
-  const [jobs, setJobs] = useState([]);
+const OpportunityForm = () => {
+    const [formData, setFormData] = useState({
+        opportunityType: '',
+        profile: '',
+        skillsRequired: '',
+        location: '',
+        numberOfOpenings: '',
+        startingDate: '',
+        duration: '',
+        responsibilities: '',
+        additionalPreferences: '',
+        stipend: '',
+        perks: []
+    });
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      const res = await axios.get('/api/jobs');
-      setJobs(res.data);
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
     };
 
-    fetchJobs();
-  }, []);
+    const handlePerksChange = (e) => {
+        const { value, checked } = e.target;
+        const newPerks = checked
+            ? [...formData.perks, value]
+            : formData.perks.filter(perk => perk !== value);
+        setFormData({ ...formData, perks: newPerks });
+    };
 
-  return (
-    <div>
-      <h2>Job Opportunities</h2>
-      {jobs.map(job => (
-        <div key={job._id}>
-          <h3>{job.title}</h3>
-          <p>{job.description}</p>
-          <p>Eligibility: {job.eligibilityCriteria}</p>
-          <p>Stipend: {job.stipend}</p>
-          <p>Openings: {job.openings}</p>
-          <p>Location: {job.location}</p>
-          <button>Apply</button>
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.post('http://localhost:5000/api/opportunities', formData);
+            alert('Opportunity posted successfully');
+        } catch (error) {
+            alert('Error posting opportunity');
+        }
+    };
+
+    return (
+        <div className="register-container"> <h2>Post Internship/Volunteer Opportunity</h2>
+            <form onSubmit={handleSubmit}>
+                <div className="radio-group">
+                    <label>Opportunity Type</label>
+                    <input type="radio" name="opportunityType" value="Internship" onChange={handleChange} /> Internship
+                    <input type="radio" name="opportunityType" value="Volunteer" onChange={handleChange} /> Volunteer
+                </div>
+                <div className="form-group">
+                    <label>Profile</label>
+                    <input type="text" name="profile" value={formData.profile} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Skills Required</label>
+                    <input type="text" name="skillsRequired" value={formData.skillsRequired} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Location</label>
+                    <input type="radio" name="location" value="On-Site" onChange={handleChange} /> On-Site
+                    <input type="radio" name="location" value="Hybrid" onChange={handleChange} /> Hybrid
+                    <input type="radio" name="location" value="Remote" onChange={handleChange} /> Remote
+                </div>
+                <div className="form-group">
+                    <label>Number of Openings</label>
+                    <input type="number" name="numberOfOpenings" value={formData.numberOfOpenings} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Starting Date</label>
+                    <input type="date" name="startingDate" value={formData.startingDate} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Duration</label>
+                    <input type="text" name="duration" value={formData.duration} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Intern's/Volunteer's Responsibilities</label>
+                    <textarea name="responsibilities" value={formData.responsibilities} onChange={handleChange}></textarea>
+                </div>
+                <div className="form-group">
+                    <label>Additional Preferences (optional)</label>
+                    <textarea name="additionalPreferences" value={formData.additionalPreferences} onChange={handleChange}></textarea>
+                </div>
+                <div className="form-group">
+                    <label>Stipend</label>
+                    <input type="text" name="stipend" value={formData.stipend} onChange={handleChange} />
+                </div>
+                <div className="form-group">
+                    <label>Perks</label>
+                    <div>
+                        <input type="checkbox" value="Certificate" onChange={handlePerksChange} /> Certificate
+                        <input type="checkbox" value="Letter of Recommendation" onChange={handlePerksChange} /> Letter of Recommendation
+                        <input type="checkbox" value="Flexible Work Hours" onChange={handlePerksChange} /> Flexible Work Hours
+                        <input type="checkbox" value="Free Food Facility" onChange={handlePerksChange} /> Free Food Facility
+                        <input type="checkbox" value="Traveling Allowance" onChange={handlePerksChange} /> Traveling Allowance
+                    </div>
+                </div>
+                <button type="submit">Post</button>
+            </form>
         </div>
-      ))}
-    </div>
-  );
-}
+    );
+};
 
-export default Jobs;
+export default OpportunityForm;

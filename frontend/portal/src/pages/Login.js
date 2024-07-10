@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../Login.css';
+import '../styles/Register.css';
 
 function Login({ history }) {
   const [userId, setUserId] = useState('');
@@ -19,33 +19,41 @@ function Login({ history }) {
   };
 
   return (
-    <div className="Login">
+    <div className="register-container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
-        <label>User ID
-          <input
-            type="text"
-            placeholder="Enter your User ID"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
-          />
-        </label>
-        <label>Password
-          <input
-            type="password"
-            placeholder="Enter your Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <label>
-          Captcha
-          <input
-            type="text"
-            value={captcha}
-            onChange={(e) => setCaptcha(e.target.value)}
-          />
-        </label>
+        <div className="form-group">
+          <label>User ID
+            <input
+              type="text"
+              placeholder="Enter your User ID"
+              value={userId}
+              onChange={(e) => setUserId(e.target.value)}
+            />
+          </label>
+        </div>
+
+        <div className="form-group">  
+          <label>Password
+            <input
+              type="password"
+              placeholder="Enter your Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+        </div>  
+        
+        <div className="form-group">
+          <label>Captcha
+            <input
+              type="text"
+              value={captcha}
+              onChange={(e) => setCaptcha(e.target.value)}
+            />
+          </label>
+        </div>
+
         <button type="submit">Login</button>
       </form>
     </div>

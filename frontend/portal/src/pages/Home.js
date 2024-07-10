@@ -11,8 +11,9 @@ function Home() {
         <ul>
           <li><Link to="./GovRegister">Student</Link></li>
           <li><Link to="./GovRegister">Government</Link></li>
-          <li><Link to="./GovRegister">University</Link></li>
+          <li><Link to="./UniRegister">University</Link></li>
         </ul>
+        <h2>For Government</h2><Link to="./govResTracker">View Student's Responses</Link>
       </div>
     </div>
   );
