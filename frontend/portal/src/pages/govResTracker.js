@@ -1,10 +1,12 @@
 // src/ResponsesTable.js
 import React from 'react';
 import '../styles/govResTracker.css';
+import govSnavbar from '../components/govSnavbar';
 
 const ResponsesTable = () => {
   return (
     <div className="responses-table-congovResTrackertainer">
+      <govSnavbar />
       <h2>Responses Received</h2>
       <table>
         <thead>

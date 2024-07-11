@@ -10,12 +10,14 @@ import Header from './components/Header';
 import GovRegister from './pages/GovRegister';
 import govResTracker from './pages/govResTracker';
 import UniRegister from './pages/UniRegister';
+import govSnavbar from './components/govSnavbar';
 
 function App() {
   return (
     <Router>
       <Header />
       <Navbar />
+      <govSnavbar />
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/login" component={Login} />
@@ -25,6 +27,7 @@ function App() {
         <Route path="/GovRegister" component={GovRegister} />
         <Route path="/govResTracker" component={govResTracker} />
         <Route path="/UniRegister" component={UniRegister} />
+        <Route path="/govSnavbar" component={govSnavbar} />
       </Switch>
     </Router>
   );
