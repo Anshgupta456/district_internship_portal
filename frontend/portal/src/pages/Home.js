@@ -1,55 +1,56 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Man from '../assets/Man.png';
+import '../index.css'
 
 function Home() {
   return (
-    <div className="flex flex-col items-center justify-center mt-24 bg-gray-100">
-      <div className="w-full max-w-2xl p-8 bg-white rounded shadow-md">
-        <h1 className="text-4xl font-bold text-center text-blue-600">Welcome to the Portal</h1>
-        <p className="mt-4 text-center text-gray-700">
-          Connecting college students with government service opportunities.
-        </p>
-        <div className="mt-8">
-          <h2 className="text-2xl font-semibold text-center text-gray-800">Register Yourself as</h2>
-          <ul className="flex flex-col items-center mt-4 space-y-4">
+    <div class="body flex-flex-col">
+      <div class="description flex flex-row">
+        <div class="text flex flex-col justify-center text-white px-12">
+          <div class="heading text-8xl mb-3">Evolve with Government</div>
+          <div class="about text-2xl w-1/2 ml-2">Connecting College Students with Government opportunities</div>
+        </div>
+        <div class="image px-40">
+          <img src={Man} alt="Homepage introduction" class="w-auto" />
+        </div>
+      </div>
+
+      {/* Register Box */}
+      <div class="flex flex-col items-center p-16">
+        <div className="box w-1/5 shadow-md">
+          <h2 className="text-2xl font-semibold text-center text-[#FC5F0D] mb-10">Register Yourself</h2>
+          <ul className="flex flex-col items-center my-4 space-y-6">
             <li>
-              <Link 
+              <Link
+                to="/StdRegister"
+
+                className="px-6 py-2 text-white transparent-button hover:bg-[#FC5F0D]"
+              >
+                As Student
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/GovRegister"
-  
-                className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                className="px-2 py-2 text-white transparent-button hover:bg-[#FC5F0D] w-9"
               >
-                Student
+                As Government
               </Link>
             </li>
             <li>
-              <Link 
-                to="/GovRegister" 
-                className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+              <Link
+                to="/UniRegister"
+                className="px-4 py-2 text-white transparent-button hover:bg-[#FC5F0D]"
               >
-                Government
-              </Link>
-            </li>
-            <li>
-              <Link 
-                to="/UniRegister" 
-                className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
-              >
-                University
+                As University
               </Link>
             </li>
           </ul>
-          <div className="mt-8 text-center">
-            <h2 className="text-2xl font-semibold text-gray-800">For Government</h2>
-            <Link 
-              to="/GovResTracker" 
-              className="inline-block px-4 py-2 mt-4 text-white bg-green-500 rounded hover:bg-green-600"
-            >
-              View Student's Responses
-            </Link>
-          </div>
         </div>
       </div>
     </div>
+
   );
 }
 

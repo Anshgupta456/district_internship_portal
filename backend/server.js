@@ -12,10 +12,17 @@ app.use(bodyParser.json());
 
 // Routes
 const userRoutes = require('./routes/userRoutes');
-const jobRoutes = require('./routes/jobRoutes');
+const jobRoutes = require('./routes/InternJobPostRoutes');
+const studentRoutes = require('./routes/studentRoutes');
+const governmentRoutes = require('./routes/governmentRoutes')
+const universityRoutes = require('./routes/universityRoutes')
 
 app.use('/api/users', userRoutes);
-app.use('/api/jobs', jobRoutes);
+app.use('/api/students', studentRoutes);
+app.use('/api/internjobposts', jobRoutes);
+app.use('/api/government', governmentRoutes);
+app.use('/api/universities', universityRoutes);
+
 
 // Database connection
 mongoose.connect(config.dbUri, {

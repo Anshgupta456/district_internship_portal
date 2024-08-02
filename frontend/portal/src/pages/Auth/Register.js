@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import '../../styles/Register.css';
+import { useNavigate } from 'react-router-dom';
 
 function Register({ history }) {
-  const [UserType, setUserType] = useState('student');
+  const [role, setRole] = useState('student');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [captcha, setCaptcha] = useState('');
-
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('/api/users/register', { name, email, password, UserType });
-      history.push('/login');
+      await axios.post('http://localhost:5000/api/users/register', { name, email, password, role });
+      navigate('/login');
     } catch (err) {
       console.error(err);
     }
@@ -25,7 +26,7 @@ function Register({ history }) {
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>User Type</label>
-            <select value={UserType} onChange={(e) => setUserType(e.target.value)}>
+            <select value={role} onChange={(e) => setRole(e.target.value)}>
               <option value="student">Student</option>
               <option value="government">Government</option>
               <option value="university">University</option>

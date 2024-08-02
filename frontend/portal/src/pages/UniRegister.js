@@ -1,195 +1,384 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import { storage } from '../firebase';
 import '../styles/Register.css';
 
 function Register({ history }) {
-  const [Uname, setUname] = useState('Uname');
-  const [email, setEmail] = useState('');
-  const [phone, setphone] = useState('');
-  const [estDate, setestDate] = useState('');
-  const [country, setcountry] = useState('');
-  const [state, setstate] = useState('');
-  const [district, setdistrict] = useState('');
-  const [pincode, setpincode] = useState('');
-  const [address, setaddress] = useState('');
-  const [fname, setfname] = useState('');
-  const [fdesignation, setfdesignation] = useState('');
-  const [fdepartment, setfdepartment] = useState('');
-  const [fcontact, setfcontact] = useState('');
-  const [fclgemail, setfclgemail] = useState('');
-  const [femail, setfemail] = useState('');
-  const [fgovID, setfgovID] = useState('');
-  const [fdocuments, setfdocuments] = useState('');
-  const [fgIDdoc, setfgIDdoc] = useState('');
-  const [fcIDdoc, setfcIDdoc] = useState('');
-  const [fsign, setfsign] = useState('');
+  const [formData, setFormData] = useState({
+    universityId: '',
+    universityName: '',
+    phone: '',
+    establishmentDate: '',
+    country: '',
+    state: '',
+    district: '',
+    pincode: '',
+    address: '',
+    faculty: {
+      name: '',
+      designation: '',
+      department: '',
+      contact: '',
+      collegeEmail: '',
+      femail: '',
+      govID: '',
+    },
+  });
 
+  const [user, setUser] = useState({
+    role: 'university',
+    email: '',
+    password: '',
+  });
 
-  
+  const [documents, setDocuments] = useState({
+    govIDDocument: null,
+    collegeIDDocument: null,
+    signature: null,
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name in user) {
+      setUser({ ...user, [name]: value });
+    } else if (name in formData.faculty) {
+      setFormData({ ...formData, faculty: { ...formData.faculty, [name]: value } });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
+  };
+
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    if (files.length > 0) {
+      setDocuments({ ...documents, [name]: files[0] });
+    }
+  };
+
+  const uploadImage = (file, name) => {
+    const storageRef = ref(storage, `documents/${name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    return new Promise((resolve, reject) => {
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          // Optional: Add progress indicator
+        },
+        (error) => {
+          console.error('Upload failed:', error);
+          reject(error);
+        },
+        async () => {
+          try {
+            const url = await getDownloadURL(uploadTask.snapshot.ref);
+            resolve(url);
+          } catch (error) {
+            reject(error);
+          }
+        }
+      );
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = {
-      Uname,
-      email,
-      phone,
-      estDate,
-      country,
-      state,
-      district,
-      pincode,
-      address,
-      fname,
-      fdesignation,
-      fdepartment,
-      fcontact,
-      fclgemail,
-      femail,
-      fgovID,
-      fdocuments,
-      fgIDdoc,
-      fcIDdoc,
-      fsign,
+
+    // Validate university ID format
+    const universityIdPattern = /^[A-Za-z]{4}\d{4}$/;
+    if (!universityIdPattern.test(formData.universityId)) {
+      alert('University ID must be 4 alphabetic characters followed by 4 numeric characters (e.g., ABCD1234)');
+      return;
+    }
+
+    const documentURLs = {};
+    for (const key in documents) {
+      if (documents[key]) {
+        try {
+          const url = await uploadImage(documents[key], `${formData.universityName}_${key}`);
+          documentURLs[key] = url;
+        } catch (error) {
+          console.error(`Error uploading ${key}:`, error);
+        }
+      }
+    }
+
+    const fullFormData = {
+      ...formData,
+      documents: documentURLs,
+      user,
     };
 
     try {
-      const response = await axios.post('/api/register', formData);
-      console.log(response.data);
-      // handle success (e.g., show a success message)
+      await axios.post('http://localhost:5000/api/universities/register', fullFormData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      alert('Registration successful!');
     } catch (error) {
-      console.error(error);
-      // handle error (e.g., show an error message)
+      console.error('Error submitting form:', error);
     }
   };
 
   return (
     <div className="register-container">
+      <h2>University Registration</h2>
       <form onSubmit={handleSubmit}>
-        <h2>University Registration</h2>
+        <div className="form-group">
+          <label>
+            University ID:
+            <input
+              type="text"
+              name="universityId"
+              value={formData.universityId}
+              onChange={handleInputChange}
+              required
+              pattern="^[A-Za-z]{4}\d{4}$"
+              title="University ID must be 4 alphabetic characters followed by 4 numeric characters (e.g., ABCD1234)"
+            />
+          </label>
+        </div>
         <div className="form-group">
           <label>
             University Name:
-            <input type="text" value={Uname} onChange={(e) => setUname(e.target.value)} />
+            <input
+              type="text"
+              name="universityName"
+              value={formData.universityName}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             Email:
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input
+              type="email"
+              name="email"
+              value={user.email}
+              onChange={handleInputChange}
+              required
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label>
+            Password:
+            <input
+              type="password"
+              name="password"
+              value={user.password}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             Phone:
-            <input type="text" value={phone} onChange={(e) => setphone(e.target.value)} />
+            <input
+              type="text"
+              name="phone"
+              value={formData.phone}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             Establishment Date:
-            <input type="date" value={estDate} onChange={(e) => setestDate(e.target.value)} />
+            <input
+              type="date"
+              name="establishmentDate"
+              value={formData.establishmentDate}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             Country:
-            <input type="text" value={country} onChange={(e) => setcountry(e.target.value)} />
+            <input
+              type="text"
+              name="country"
+              value={formData.country}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             State:
-            <input type="text" value={state} onChange={(e) => setstate(e.target.value)} />
+            <input
+              type="text"
+              name="state"
+              value={formData.state}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             District:
-            <input type="text" value={district} onChange={(e) => setdistrict(e.target.value)} />
+            <input
+              type="text"
+              name="district"
+              value={formData.district}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             Pincode:
-            <input type="text" value={pincode} onChange={(e) => setpincode(e.target.value)} />
+            <input
+              type="text"
+              name="pincode"
+              value={formData.pincode}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             Address:
-            <input type="text" value={address} onChange={(e) => setaddress(e.target.value)} />
+            <input
+              type="text"
+              name="address"
+              value={formData.address}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <h2>Faculty Registration</h2>
           <label>
             Faculty Name:
-            <input type="text" value={fname} onChange={(e) => setfname(e.target.value)} />
+            <input
+              type="text"
+              name="name"
+              value={formData.faculty.name}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             Designation:
-            <input type="text" value={fdesignation} onChange={(e) => setfdesignation(e.target.value)} />
+            <input
+              type="text"
+              name="designation"
+              value={formData.faculty.designation}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             Department:
-            <input type="text" value={fdepartment} onChange={(e) => setfdepartment(e.target.value)} />
+            <input
+              type="text"
+              name="department"
+              value={formData.faculty.department}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             Contact:
-            <input type="text" value={fcontact} onChange={(e) => setfcontact(e.target.value)} />
+            <input
+              type="text"
+              name="contact"
+              value={formData.faculty.contact}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             College Email:
-            <input type="email" value={fclgemail} onChange={(e) => setfclgemail(e.target.value)} />
+            <input
+              type="email"
+              name="collegeEmail"
+              value={formData.faculty.collegeEmail}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
-            Email:
-            <input type="email" value={femail} onChange={(e) => setfemail(e.target.value)} />
+            Faculty Email:
+            <input
+              type="email"
+              name="femail"
+              value={formData.faculty.femail}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             Government ID:
-            <input type="text" value={fgovID} onChange={(e) => setfgovID(e.target.value)} />
+            <input
+              type="text"
+              name="govID"
+              value={formData.faculty.govID}
+              onChange={handleInputChange}
+              required
+            />
           </label>
         </div>
-        <div className="form-group">
-          <label>
-            Documents:
-            <input type="text" value={fdocuments} onChange={(e) => setfdocuments(e.target.value)} />
-          </label>
-        </div>
+        <h3>Documents</h3>
         <div className="form-group">
           <label>
             Government ID Document:
-            <input type="text" value={fgIDdoc} onChange={(e) => setfgIDdoc(e.target.value)} />
+            <input
+              type="file"
+              name="govIDDocument"
+              onChange={handleFileChange}
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             College ID Document:
-            <input type="text" value={fcIDdoc} onChange={(e) => setfcIDdoc(e.target.value)} />
+            <input
+              type="file"
+              name="collegeIDDocument"
+              onChange={handleFileChange}
+            />
           </label>
         </div>
         <div className="form-group">
           <label>
             Signature:
-            <input type="text" value={fsign} onChange={(e) => setfsign(e.target.value)} />
+            <input
+              type="file"
+              name="signature"
+              onChange={handleFileChange}
+            />
           </label>
         </div>
         <button type="submit">Register</button>
       </form>
     </div>
   );
-};
+}
 
 export default Register;

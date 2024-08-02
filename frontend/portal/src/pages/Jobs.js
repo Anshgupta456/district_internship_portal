@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState,useEffect } from 'react';
 import axios from 'axios';
 import '../styles/Register.css';
+import { AuthContext } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const OpportunityForm = () => {
+
+    const {profileId,role} = useContext(AuthContext)
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         opportunityType: '',
         profile: '',
@@ -14,8 +19,26 @@ const OpportunityForm = () => {
         responsibilities: '',
         additionalPreferences: '',
         stipend: '',
-        perks: []
+        perks: [],
+        governmentId : profileId
     });
+
+    useEffect(() => {
+        // Check the user role and navigate if not government
+        if (role !== 'government') {
+          navigate('/');
+        }
+      }, [role]);
+
+    useEffect(() => {
+        // Set the governmentId once profileId is available
+        if (profileId) {
+          setFormData((prevData) => ({
+            ...prevData,
+            governmentId: profileId
+          }));
+        }
+      }, [profileId]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -33,9 +56,11 @@ const OpportunityForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/api/opportunities', formData);
+            await axios.post('http://localhost:5000/api/internJobPosts', formData);
+            console.log(profileId)
             alert('Opportunity posted successfully');
         } catch (error) {
+            console.log(profileId)
             alert('Error posting opportunity');
         }
     };

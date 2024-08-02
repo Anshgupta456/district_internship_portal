@@ -1,32 +1,50 @@
-import React from 'react';
+// App.js
+import React, { useContext } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { AuthContext } from './context/AuthContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
-import Dashboard from './pages/Dashboard';
+import GovDashboard from './pages/GovDashboard';
 import Jobs from './pages/Jobs';
 import GovRegister from './pages/GovRegister';
 import GovResTracker from './pages/GovResTracker';
 import UniRegister from './pages/UniRegister';
 import GovNavbar from './components/GovNavbar';
-import Header from './components/Header';
+// import Header from './components/Header';
+import JobsPosted from './pages/JobsPosted';
+import StdRegister from './pages/StdRegister';
+import StdDashboard from './pages/StdDashboard';
+import ViewJobs from './pages/ViewJobs';
+import JobDescription from './pages/JobDescription';
+import UniDashboard from './pages/UniDashboard';
+import StudentList from './pages/ViewStdRecord';
 
 function App() {
+  const { role } = useContext(AuthContext);
+
   return (
     <Router>
-      <Header />
+      {/* <Header /> */}
       <Navbar />
-      <GovNavbar />
+      {role === 'government' && <GovNavbar />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/govdashboard" element={<GovDashboard />} />
         <Route path="/jobs" element={<Jobs />} />
-        <Route path="/GovRegister" element={<GovRegister />} />
-        <Route path="/govResTracker" element={<GovResTracker />} />
-        <Route path="/UniRegister" element={<UniRegister />} />
+        <Route path="/govregister" element={<GovRegister />} />
+        <Route path="/govrestracker" element={<GovResTracker />} />
+        <Route path="/uniregister" element={<UniRegister />} />
+        <Route path="/jobsposted" element={<JobsPosted />} />
+        <Route path="/stdregister" element={<StdRegister />} />
+        <Route path="/stddashboard" element={<StdDashboard />} />
+        <Route path="/viewjobs" element={<ViewJobs />} />
+        <Route path="/jobdescription/:id" element={<JobDescription />} />
+        <Route path="/unidashboard" element={<UniDashboard />} />
+        <Route path="viewstdrecord" element={<StudentList/>}/>
       </Routes>
     </Router>
   );
