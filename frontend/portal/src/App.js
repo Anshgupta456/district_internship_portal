@@ -1,31 +1,33 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import Login from './pages/Auth/Login';
+import Register from './pages/Auth/Register';
 import Dashboard from './pages/Dashboard';
 import Jobs from './pages/Jobs';
-import Header from './components/Header';
 import GovRegister from './pages/GovRegister';
-import govResTracker from './pages/govResTracker';
+import GovResTracker from './pages/GovResTracker';
 import UniRegister from './pages/UniRegister';
+import GovNavbar from './components/GovNavbar';
+import Header from './components/Header';
 
 function App() {
   return (
     <Router>
       <Header />
       <Navbar />
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/dashboard" component={Dashboard} />
-        <Route path="/jobs" component={Jobs} />
-        <Route path="/GovRegister" component={GovRegister} />
-        <Route path="/govResTracker" component={govResTracker} />
-        <Route path="/UniRegister" component={UniRegister} />
-      </Switch>
+      <GovNavbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/jobs" element={<Jobs />} />
+        <Route path="/GovRegister" element={<GovRegister />} />
+        <Route path="/govResTracker" element={<GovResTracker />} />
+        <Route path="/UniRegister" element={<UniRegister />} />
+      </Routes>
     </Router>
   );
 }

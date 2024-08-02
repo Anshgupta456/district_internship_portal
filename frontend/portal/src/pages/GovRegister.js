@@ -1,25 +1,27 @@
 import React, { useState } from 'react';
+// import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/Register.css';
 
-function Register({ history }) {
-  const [GDepartment, setGDepartment] = useState('GDepartment');
+function GovRegister() {
+  const [GDepartment, setGDepartment] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [phone, setphone] = useState('');
-  const [designation, setdesignation] = useState('');
+  const [phone, setPhone] = useState('');
+  const [designation, setDesignation] = useState('');
   const [password, setPassword] = useState('');
   const [captcha, setCaptcha] = useState('');
-
+  
+  // const history = useHistory();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post('/api/users/register', { GDepartment,name, designation, email, phone, password, captcha });
-      history.push('/login');
-    } catch (err) {
-      console.error(err);
-    }
+    // e.preventDefault();
+    // try {
+    //   await axios.post('/api/users/register', { GDepartment, name, designation, email, phone, password, captcha });
+    //   history.push('/login');
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
 
   return (
@@ -31,8 +33,8 @@ function Register({ history }) {
               <input
                   type="text"
                   placeholder="Enter your Department's Name"
-                  value={designation}
-                  onChange={(e) => setdesignation(e.target.value)}
+                  value={GDepartment}
+                  onChange={(e) => setGDepartment(e.target.value)}
               />
           </label>
         </div>
@@ -54,7 +56,7 @@ function Register({ history }) {
                 type="text"
                 placeholder="Enter your Designation"
                 value={designation}
-                onChange={(e) => setGDepartment(e.target.value)}
+                onChange={(e) => setDesignation(e.target.value)}
             />
         </label>
       </div>
@@ -72,9 +74,9 @@ function Register({ history }) {
         <label>Contact Number
           <input
             type="number"
-            placeholder="Email"
+            placeholder="Phone"
             value={phone}
-            onChange={(e) => setphone(e.target.value)}
+            onChange={(e) => setPhone(e.target.value)}
           />
         </label>
       </div>
@@ -104,4 +106,4 @@ function Register({ history }) {
   );
 }
 
-export default Register;
+export default GovRegister;

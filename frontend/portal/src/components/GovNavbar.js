@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/govSnavbar.css';
+import '../styles/GovNavbar.css';
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -9,7 +9,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="navbar">
+    <nav className="navbar flex justify-between items-center px-7 py-9 shadow-md bg-white">
       <ul className="navbar-links">
         <li><a href="/dashboard">Dashboard</a></li> {/*It will show View Profile Page*/}
         <li><a href="/post-internship-job">Post Internship/Job</a></li>
