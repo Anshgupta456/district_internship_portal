@@ -1,0 +1,77 @@
+.register-container {
+  width: 50%;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #FC5F0D;
+  border-radius: 5px;
+  /* box-shadow: 0 0 10px #FC5F0D; */
+  text-align: left;
+  color: white;
+}
+
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+  color: black;
+}
+
+.form-group file{
+  background-color: white;
+}
+button[type="submit"] {
+  background-color: #FC5F0D;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.radio-group {
+
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.radio-group label {
+
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  margin-right: 0px;
+}
+
+.radio-group input {
+  margin-right: 2px;
+}
+
+button[type="submit"]:hover {
+  background-color: #ed8249;
+}
