@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import pfp from '../assets/pfp.png';
 import { AuthContext } from '../context/AuthContext';
-import '../index.css'
+import '../index.css';
 
 const UniDashboard = () => {
   const navigate = useNavigate();
@@ -58,6 +58,12 @@ const UniDashboard = () => {
           className="block solid-button p-5 mb-4 mt-2 rounded-lg shadow-lg cursor-pointer"
         >
           <h3 className="text-2xl">View Your Institute's Students Record</h3>
+        </a>
+        <a
+          onClick={() => navigate('/viewstudent')}
+          className="block solid-button p-5 mb-4 rounded-lg shadow-lg cursor-pointer"
+        >
+          <h3 className="text-2xl">View Students</h3>
         </a>
         <a
           onClick={() => navigate('/stdregister')}

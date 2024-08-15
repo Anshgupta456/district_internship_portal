@@ -50,57 +50,73 @@ exports.register = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
-
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    let user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ message: 'Invalid credentials' });
-    }
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.status(400).json({ message: 'Invalid credentials' });
-    }
-    const payload = {
-      user: {
-        id: user.id,
-        role: user.role
-      }
-    };
+    // Check if the login credentials match the admin's
+    if (email === 'admin@govolve.com' && password === 'Test$1234') {
+      const payload = {
+        user: {
+          id: 'admin', // You can set a custom ID or leave it as 'admin'
+          role: 'admin'
+        }
+      };
 
-    let profileId;
-
-    if (user.role === 'government') {
-      const government = await Government.findOne({ user: user.id }).populate('user');
-      if (!government) {
-        return res.status(404).json({ message: 'Profile not found' });
-      }
-      profileId = government._id;
-    } else if (user.role === 'student') {
-      const student = await Student.findOne({ user: user.id }).populate('user');
-      if (!student) {
-        return res.status(404).json({ message: 'Profile not found' });
-      }
-      profileId = student._id;
-    } else if (user.role === 'university') {
-      const university = await University.findOne({ user: user.id }).populate('user');
-      if (!university) {
-        return res.status(404).json({ message: 'Profile not found' });
-      }
-      profileId = university._id;
+      jwt.sign(payload, config.jwtSecret, { expiresIn: config.jwtExpiration }, (err, token) => {
+        if (err) throw err;
+        return res.json({ token, role: 'admin', id: 'admin', profileId: null });
+      });
     } else {
-      return res.status(400).json({ message: 'Invalid user role' });
-    }
+      // Regular user login process
+      let user = await User.findOne({ email });
+      if (!user) {
+        return res.status(400).json({ message: 'Invalid credentials' });
+      }
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(400).json({ message: 'Invalid credentials' });
+      }
+      const payload = {
+        user: {
+          id: user.id,
+          role: user.role
+        }
+      };
 
-    jwt.sign(payload, config.jwtSecret, { expiresIn: config.jwtExpiration }, (err, token) => {
-      if (err) throw err;
-      res.json({ token, role: user.role, id: user.id, profileId });
-    });
+      let profileId;
+
+      if (user.role === 'government') {
+        const government = await Government.findOne({ user: user.id }).populate('user');
+        if (!government) {
+          return res.status(404).json({ message: 'Profile not found' });
+        }
+        profileId = government._id;
+      } else if (user.role === 'student') {
+        const student = await Student.findOne({ user: user.id }).populate('user');
+        if (!student) {
+          return res.status(404).json({ message: 'Profile not found' });
+        }
+        profileId = student._id;
+      } else if (user.role === 'university') {
+        const university = await University.findOne({ user: user.id }).populate('user');
+        if (!university) {
+          return res.status(404).json({ message: 'Profile not found' });
+        }
+        profileId = university._id;
+      } else {
+        return res.status(400).json({ message: 'Invalid user role' });
+      }
+
+      jwt.sign(payload, config.jwtSecret, { expiresIn: config.jwtExpiration }, (err, token) => {
+        if (err) throw err;
+        res.json({ token, role: user.role, id: user.id, profileId });
+      });
+    }
   } catch (err) {
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 exports.verifyUser = async (req, res) => {
   try {

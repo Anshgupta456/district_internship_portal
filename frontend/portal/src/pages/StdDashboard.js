@@ -3,27 +3,26 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import pfp from '../assets/pfp.png';
 import { useNavigate } from 'react-router-dom';
+import EditStudentModal from '../components/Modal/EditStudentModal';
 import '../index.css';
 
 const StdDashboard = () => {
     const [student, setStudent] = useState({});
     const [jobs, setJobs] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
     const { profileId } = useContext(AuthContext);
 
     useEffect(() => {
         const fetchProfileData = async () => {
             try {
-                // Fetch the student profile data
                 const profileResponse = await axios.get(`http://localhost:5000/api/students/${profileId}`);
                 const studentData = profileResponse.data;
                 setStudent(studentData);
 
-                // Fetch the jobs IDs associated with the student
                 const appliedJobsResponse = await axios.get(`http://localhost:5000/api/students/${profileId}`);
                 const jobIds = appliedJobsResponse.data.appliedJobs.map(job => job.jobId);
 
-                // Fetch the jobs details using the job IDs
                 const jobDetailsPromises = jobIds.map(jobId => axios.get(`http://localhost:5000/api/internjobposts/${jobId}`));
                 const jobDetailsResponses = await Promise.all(jobDetailsPromises);
                 const jobDetails = jobDetailsResponses.map(response => response.data);
@@ -37,6 +36,18 @@ const StdDashboard = () => {
         fetchProfileData();
     }, [profileId]);
 
+    const handleOpenModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleUpdateProfile = (updatedData) => {
+        setStudent(updatedData);
+    };
+
     return (
         <div className="flex h-screen my-5 px-5">
             <div className="w-1/3 dashboard-box flex flex-col items-center px-10 h-[35rem]">
@@ -45,12 +56,14 @@ const StdDashboard = () => {
                 </div>
                 <h2 className="text-2xl font-semibold mb-2 text-center text-[#FC5F0D]">{student.name}</h2>
                 <p className="text-center text-white"><strong>Student ID:</strong> {student.studentId}</p>
+                <p className="text-center text-white"><strong>University ID:</strong> {student.universityId}</p>
                 <p className="text-center text-white"><strong>Course:</strong> {student.graduationCourse}</p>
+                <p className="text-center text-white"><strong>Batch:</strong> {student.graduationBatch}</p>
+                <p className="text-center text-white"><strong>Last Passed Course:</strong> {student.lastPassedCourse}</p>
                 <p className="text-center text-white"><strong>Contact Number:</strong> {student.contactNumber}</p>
-                <p className="text-center text-white"><strong>Working Hours:</strong> {student.workingHours}</p> {/* New field */}
-                <button className="mt-5 px-4 py-2 bg-blue-500 text-white rounded">Edit Profile</button>
+                <p className="text-center text-white"><strong>Working Hours:</strong> {student.workingHours}</p>
+                <button onClick={handleOpenModal} className="mt-5 px-4 py-2 bg-blue-500 text-white rounded">Edit Profile</button>
             </div>
-            {/* Main Content */}
             <div className="w-3/4 pl-5">
                 <section className="dashboard-box px-5 pb-4">
                     <h3 className="text-3xl mb-2 text-left text-[#FC5F0D]">About</h3>
@@ -91,6 +104,14 @@ const StdDashboard = () => {
                     </div>
                 </section>
             </div>
+
+            {/* Render the EditStudentModal */}
+            <EditStudentModal
+                student={student}
+                isOpen={isModalOpen}
+                onClose={handleCloseModal}
+                onUpdate={handleUpdateProfile}
+            />
         </div>
     );
 };

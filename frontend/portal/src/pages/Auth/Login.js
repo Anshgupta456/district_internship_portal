@@ -31,13 +31,17 @@ function Login() {
         return;
       }
 
-      login(res.data.token, res.data.role, res.data.id, res.data.profileId,email);
+      login(res.data.token, res.data.role, res.data.id, res.data.profileId, email);
+
+      // Navigate based on the role
       if (res.data.role === 'student') {
         navigate('/stddashboard');
       } else if (res.data.role === 'government') {
         navigate('/govdashboard');
       } else if (res.data.role === 'university') {
         navigate('/unidashboard');
+      } else if (res.data.role === 'admin') {
+        navigate('/admin');
       } else {
         navigate('/');
       }

@@ -1,5 +1,4 @@
-// src/pages/StudentRegister.js
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { storage } from '../firebase';
@@ -12,6 +11,7 @@ function StudentRegister() {
   const { profileId, role } = useContext(AuthContext);
   const { tncAccepted, setTncAccepted } = useContext(Context);
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     universityId: role === 'university' ? profileId : '',
     name: '',
@@ -64,8 +64,9 @@ function StudentRegister() {
   };
 
   const uploadImage = (file, name) => {
-    const storageRef = ref(storage, `documents/${name}`);
+    const storageRef = ref(storage, `documents/${formData.studentId}/${name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
+
     return new Promise((resolve, reject) => {
       uploadTask.on(
         'state_changed',
@@ -91,7 +92,7 @@ function StudentRegister() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (tncAccepted) {
-      register();
+      await register();
     } else {
       setShowTNC(true);
     }
@@ -102,7 +103,7 @@ function StudentRegister() {
     for (const key in documents) {
       if (documents[key]) {
         try {
-          const url = await uploadImage(documents[key], `${formData.studentId}_${key}`);
+          const url = await uploadImage(documents[key], `${key}`);
           documentURLs[key] = url;
         } catch (error) {
           console.error(`Error uploading ${key}:`, error);

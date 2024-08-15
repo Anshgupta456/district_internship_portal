@@ -169,6 +169,22 @@ const registerStudent = async (req, res) => {
     }
 };
 
+const getStudentsByUniversityId = async (req, res) => {
+  try {
+    const { universityId } = req.params;
+    const students = await Student.find({ universityId });
+
+    if (!students || students.length === 0) {
+      return res.status(404).json({ message: 'No students found for this university' });
+    }
+
+    res.status(200).json(students);
+  } catch (error) {
+    console.error('Error fetching students by universityId:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 module.exports = {
     createUniversity,
     getAllUniversities,
@@ -176,4 +192,5 @@ module.exports = {
     updateUniversity,
     deleteUniversity,
     registerStudent,
+    getStudentsByUniversityId
 };

@@ -19,4 +19,6 @@ router.delete('/:id', universityController.deleteUniversity);
 
 router.post('/students/register',universityController.registerStudent);
 
+router.get('/students/:universityId',universityController.getStudentsByUniversityId);
+
 module.exports = router;

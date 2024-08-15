@@ -20,6 +20,10 @@ const StudentSchema = new Schema({
     ref: 'User',
     required: true
   },
+  profileImage:{
+    type:String,
+    required:false
+  },
   universityId: {
     type: String,
     required: [true, "universityId is required"]

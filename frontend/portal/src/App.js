@@ -21,6 +21,7 @@ import JobDescription from './pages/JobDescription';
 import UniDashboard from './pages/UniDashboard';
 import StudentList from './pages/ViewStdRecord';
 import ManageWorkingHours from './components/ManageWorkingHours';
+import Admin from './pages/Admin';
 
 function App() {
   const { role } = useContext(AuthContext);
@@ -32,6 +33,7 @@ function App() {
       {role === 'government' && <GovNavbar />}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/admin" element={<Admin/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/govdashboard" element={<GovDashboard />} />
@@ -44,6 +46,7 @@ function App() {
         <Route path="/stddashboard" element={<StdDashboard />} />
         <Route path="/workinghours" element={<ManageWorkingHours />} />
         <Route path="/viewjobs" element={<ViewJobs />} />
+        <Route path="/viewstudent" element={<StudentList />} />
         <Route path="/response/:id" element={<ResponsesTable />} />
         <Route path="/jobdescription/:id" element={<JobDescription />} />
         <Route path="/unidashboard" element={<UniDashboard />} />

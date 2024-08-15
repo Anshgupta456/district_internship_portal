@@ -79,7 +79,6 @@ const ResponsesTable = () => {
               <th>Student ID</th>
               <th>Name</th>
               <th>College ID</th>
-              <th>College Name</th>
               <th>E-mail ID</th>
               <th>Contact Number</th>
               <th>Qualification</th>
@@ -93,11 +92,11 @@ const ResponsesTable = () => {
                 <td>{index + 1}</td>
                 <td>{student.studentId}</td>
                 <td>{student.name}</td>
-                <td>{student.collegeId}</td>
-                <td>{student.collegeName}</td>
-                <td>{student.email}</td>
+                <td>{student.universityId}</td>
+                <td>{student.user?.email}</td>
                 <td>{student.contactNumber}</td>
-                <td>{student.qualification}</td>
+                <td>{student.graduationCourse}</td>
+                
                 <td>
                   <a href={mailtoLink} className="link">Click Here</a>
                 </td>

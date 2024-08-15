@@ -13,7 +13,7 @@ const UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['student', 'government', 'university'],
+    enum: ['student', 'government', 'university','admin'],
     required: [true,"role is required"]
   },
   verified: {

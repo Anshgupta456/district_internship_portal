@@ -4,11 +4,13 @@ import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 import pfp from '../assets/pfp.png';
 import '../index.css';
+import EditGovModal from '../components/Modal/EditGovModal';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const { profileId } = useContext(AuthContext);
   const [profileData, setProfileData] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   useEffect(() => {
     if (profileId) {
@@ -21,6 +23,21 @@ const Dashboard = () => {
         });
     }
   }, [profileId]);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleUpdateProfile = (updatedData) => {
+    setProfileData(updatedData);
+  };
+  if (!profileData) {
+    return <div>Loading...</div>;
+}
 
   return (
     <div className="flex h-screen my-5 px-5">
@@ -39,14 +56,14 @@ const Dashboard = () => {
               <p className="text-center text-white">Officer Name: {profileData.name}</p>
               <p className="text-center text-white">Officer’s Designation: {profileData.designation}</p>
               <p className="text-center text-white">Contact Number: {profileData.phno}</p>
-              <p className="text-center text-white">E-Mail ID: {profileData.user.email}</p>
+              <p className="text-center text-white">E-Mail ID: {profileData.user?.email}</p>
+              <button onClick={handleOpenModal} className="mt-4 px-4 py-2 bg-[#FC5F0D] text-white rounded-lg">
+                Edit Profile
+              </button>
             </>
           ) : (
             <p>Loading profile data...</p>
           )}
-          <button className="mt-4 px-4 py-2 bg-[#FC5F0D] text-white rounded-lg">
-            Edit Profile
-          </button>
         </div>
       </div>
       {/* Main Content */}
@@ -76,6 +93,13 @@ const Dashboard = () => {
           <h3 className="text-2xl">Manage Working Hours</h3>
         </div>
       </div>
+      {/* Render the EditGovModal */}
+      <EditGovModal
+        profileData={profileData}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onUpdate={handleUpdateProfile}
+      />
     </div>
   );
 };
