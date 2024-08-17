@@ -154,3 +154,28 @@ exports.updateWorkingHours = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+
+exports.updateProfilePicture = async (req, res) => {
+  try {
+    const studentId = req.params.id;
+
+    // Find the student by ID
+    const student = await Student.findById(studentId);
+    if (!student) {
+      return res.status(404).json({ message: 'Student not found' });
+    }
+
+    // Update the profile image with the URL provided in the request body
+    student.profileImage = req.body.profileImage;
+    await student.save();
+
+    res.status(200).json({
+      message: 'Profile picture updated successfully',
+      profileImage: student.profileImage,
+    });
+  } catch (err) {
+    console.error('Error updating profile picture:', err);
+    res.status(500).json({ message: 'Server error' });
+  }
+};

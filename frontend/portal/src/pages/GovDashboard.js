@@ -5,6 +5,7 @@ import { AuthContext } from '../context/AuthContext';
 import pfp from '../assets/pfp.png';
 import '../index.css';
 import EditGovModal from '../components/Modal/EditGovModal';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // Firebase imports
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -35,20 +36,57 @@ const Dashboard = () => {
   const handleUpdateProfile = (updatedData) => {
     setProfileData(updatedData);
   };
+
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const storage = getStorage();
+      const storageRef = ref(storage, `gov_pfp/${profileId}.png`);
+
+      try {
+        // Upload the file
+        await uploadBytes(storageRef, file);
+        
+        // Get the download URL
+        const downloadURL = await getDownloadURL(storageRef);
+        
+        // Update the government's profile picture URL
+        await axios.put(`http://localhost:5000/api/government/profile-image/${profileId}`, { profileImage: downloadURL });
+        
+        // Update the state
+        setProfileData(prevState => ({
+          ...prevState,
+          profilePicture: downloadURL
+        }));
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
+    }
+  };
+
   if (!profileData) {
     return <div>Loading...</div>;
-}
+  }
 
   return (
     <div className="flex h-screen my-5 px-5">
       <div className="w-1/3 dashboard-box flex flex-col items-center px-10 h-[35rem]">
         <div className="text-center">
           <div className="w-24 h-24 mx-auto rounded-full mb-2">
-            <img
-              className="w-full h-full rounded-full"
-              src={profileData ? profileData.profilePicture : pfp}
-              alt="Profile"
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageUpload}
+              className="absolute opacity-0"
+              id="upload-button"
             />
+            <label htmlFor="upload-button">
+              <img
+                className="w-full h-full rounded-full cursor-pointer"
+                src={profileData ? profileData.profilePicture : pfp}
+                alt="Profile"
+              />
+            </label>
           </div>
           {profileData ? (
             <>

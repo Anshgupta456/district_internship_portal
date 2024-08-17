@@ -20,5 +20,7 @@ router.delete('/:id', governmentController.deleteGovernment);
 // Get all Job Posts
 router.get('/jobs/:id',governmentController.getGovernmentJobPosts)
 
+router.put('/profile-image/:governmentId', governmentController.updateProfileImage);
+
 router.get('/selected-students/:governmentId', governmentController.getSelectedStudents);
 module.exports = router;

@@ -21,4 +21,6 @@ router.post('/students/register',universityController.registerStudent);
 
 router.get('/students/:universityId',universityController.getStudentsByUniversityId);
 
+router.put('/profile-image/:universityId', universityController.updateProfileImage);
+
 module.exports = router;

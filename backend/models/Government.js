@@ -7,6 +7,10 @@ const GovernmentSchema = new Schema({
     ref: 'User',
     required: false
   },
+  profileImage:{
+    type:String,
+    required:false
+  },
   departmentName: {
     type: String,
     required: true

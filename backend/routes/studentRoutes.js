@@ -36,4 +36,6 @@ router.get('/profile', auth, async (req, res) => {
     }
 });
 
+router.put('/pfp/:id/', studentController.updateProfilePicture);
+
 module.exports = router;

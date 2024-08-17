@@ -7,6 +7,7 @@ import { Context } from '../context/Context';
 import TNC from '../components/TNC';
 import UniID from '../components/UniID';
 import '../styles/Register.css';
+import '../styles/Loading.css';
 
 function Register() {
   const [formData, setFormData] = useState({

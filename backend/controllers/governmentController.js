@@ -146,7 +146,33 @@ const getSelectedStudents = async (req, res) => {
   }
 };
 
-module.exports = getSelectedStudents;
+const updateProfileImage = async (req, res) => {
+  try {
+      const { governmentId } = req.params;
+      const { profileImage } = req.body;
+
+      if (!profileImage) {
+          return res.status(400).json({ message: 'Profile image URL is required' });
+      }
+
+      const government = await Government.findByIdAndUpdate(
+          governmentId,
+          { profileImage },
+          { new: true }
+      );
+
+      if (!government) {
+          return res.status(404).json({ message: 'Government profile not found' });
+      }
+
+      res.status(200).json({
+          message: 'Profile image updated successfully',
+          government
+      });
+  } catch (error) {
+      res.status(500).json({ message: 'Server error', error });
+  }
+};
 
 module.exports = {
   createGovernment,
@@ -155,5 +181,6 @@ module.exports = {
   updateGovernment,
   deleteGovernment,
   getGovernmentJobPosts,
-  getSelectedStudents
+  getSelectedStudents,
+  updateProfileImage
 };

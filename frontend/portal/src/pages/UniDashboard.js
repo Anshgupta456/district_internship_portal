@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import pfp from '../assets/pfp.png';
 import { AuthContext } from '../context/AuthContext';
+import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage'; // Firebase imports
 import '../index.css';
 
 const UniDashboard = () => {
@@ -25,6 +26,33 @@ const UniDashboard = () => {
     }
   }, [profileId]);
 
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const storage = getStorage();
+      const storageRef = ref(storage, `university_pfp/${profileId}.png`);
+
+      try {
+        // Upload the file to Firebase storage
+        await uploadBytes(storageRef, file);
+
+        // Get the download URL
+        const downloadURL = await getDownloadURL(storageRef);
+
+        // Update the university's profile image URL on the server
+        await axios.put(`http://localhost:5000/api/universities/profile-image/${profileId}`, { profileImage: downloadURL });
+
+        // Update the state with the new profile image URL
+        setUniversity(prevState => ({
+          ...prevState,
+          profileImage: downloadURL
+        }));
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
+    }
+  };
+
   if (!university) {
     return <div>Loading...</div>;
   }
@@ -33,7 +61,20 @@ const UniDashboard = () => {
     <div className="flex h-screen my-5 px-5">
       <div className="w-1/3 dashboard-box flex flex-col items-center px-10 h-[35rem]">
         <div className="bg-[#0e0e0e] w-32 h-32 mb-2 flex items-center justify-center">
-          <img src={pfp} alt="Institute Logo" />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="absolute opacity-0"
+            id="upload-button"
+          />
+          <label htmlFor="upload-button">
+            <img
+              src={university?.profileImage || pfp}
+              alt="Institute Logo"
+              className="cursor-pointer w-32 h-32 rounded-full object-cover"
+            />
+          </label>
         </div>
         <h1 className="text-2xl font-bold mb-2 text-center text-[#FC5F0D]">
           {university.universityName}

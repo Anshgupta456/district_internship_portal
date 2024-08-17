@@ -184,6 +184,34 @@ const getStudentsByUniversityId = async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 };
+const updateProfileImage = async (req, res) => {
+    try {
+        const { universityId } = req.params;
+        const { profileImage } = req.body;
+
+        if (!profileImage) {
+            return res.status(400).json({ message: 'Profile image URL is required' });
+        }
+
+        const university = await University.findByIdAndUpdate(
+            universityId,
+            { profileImage },
+            { new: true }
+        );
+
+        if (!university) {
+            return res.status(404).json({ message: 'University not found' });
+        }
+
+        res.status(200).json({
+            message: 'Profile image updated successfully',
+            university
+        });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error', error });
+    }
+};
+
 
 module.exports = {
     createUniversity,
@@ -192,5 +220,6 @@ module.exports = {
     updateUniversity,
     deleteUniversity,
     registerStudent,
-    getStudentsByUniversityId
+    getStudentsByUniversityId,
+    updateProfileImage
 };
