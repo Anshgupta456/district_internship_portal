@@ -12,7 +12,7 @@ const JobDescription = () => {
   useEffect(() => {
     const fetchJobData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/internjobposts/${id}`);
+        const response = await axios.get(`http://https://district-internship-portal-3.onrender.com/api/internjobposts/${id}`);
         setJob(response.data);
       } catch (err) {
         setError(err.message);

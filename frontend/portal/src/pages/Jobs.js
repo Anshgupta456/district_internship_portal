@@ -56,7 +56,7 @@ const OpportunityForm = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post('http://localhost:5000/api/internJobPosts', formData);
+            await axios.post('http://https://district-internship-portal-3.onrender.com/api/internJobPosts', formData);
             console.log(profileId)
             alert('Opportunity posted successfully');
         } catch (error) {

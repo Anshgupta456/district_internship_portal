@@ -19,21 +19,21 @@ const ResponsesTable = () => {
     const fetchJobPostsAndStudents = async () => {
       try {
         // Fetch job posts for the government user
-        const jobPostsResponse = await axios.get(`http://localhost:5000/api/government/${profileId}`);
+        const jobPostsResponse = await axios.get(`http://https://district-internship-portal-3.onrender.com/api/government/${profileId}`);
         const jobPosts = jobPostsResponse.data.jobPosts;
 
         // Create a set to avoid duplicate student IDs
         const studentIds = new Set();
 
         // Fetch applied students for each job post
-        const appliedStudentsResponse = await axios.get(`http://localhost:5000/api/internjobposts/${jobId}`);
+        const appliedStudentsResponse = await axios.get(`http://https://district-internship-portal-3.onrender.com/api/internjobposts/${jobId}`);
         const appliedStudents = appliedStudentsResponse.data.appliedStudents;
 
         // Add each applied student's ID to the set
         appliedStudents.forEach(studentId => studentIds.add(studentId));
 
         // Fetch details for each unique student
-        const studentDataPromises = Array.from(studentIds).map(studentId => axios.get(`http://localhost:5000/api/students/${studentId}`));
+        const studentDataPromises = Array.from(studentIds).map(studentId => axios.get(`http://https://district-internship-portal-3.onrender.com/api/students/${studentId}`));
         const studentDataResponses = await Promise.all(studentDataPromises);
 
         // Extract the student data from the responses
@@ -51,14 +51,14 @@ const ResponsesTable = () => {
   const handleCheckboxChange = async (studentId, isChecked) => {
     if (isChecked) {
       try {
-        await axios.post(`http://localhost:5000/api/internjobposts/${jobId}/select`, { studentId });
+        await axios.post(`http://https://district-internship-portal-3.onrender.com/api/internjobposts/${jobId}/select`, { studentId });
         setSelectedStudents([...selectedStudents, studentId]);
       } catch (err) {
         console.error('Error selecting student:', err);
       }
     } else {
       try {
-        await axios.post(`http://localhost:5000/api/internjobposts/${jobId}/unselect`, { studentId });
+        await axios.post(`http://https://district-internship-portal-3.onrender.com/api/internjobposts/${jobId}/unselect`, { studentId });
         setSelectedStudents(selectedStudents.filter(id => id !== studentId));
       } catch (err) {
         console.error('Error unselecting student:', err);

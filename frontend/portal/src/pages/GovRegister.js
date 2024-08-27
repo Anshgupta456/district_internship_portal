@@ -44,7 +44,7 @@ function GovRegister() {
       };
 
       try {
-        await axios.post('http://localhost:5000/api/government/register', {
+        await axios.post('http://https://district-internship-portal-3.onrender.com/api/government/register', {
           user,
           name: name,
           departmentName: GDepartment,

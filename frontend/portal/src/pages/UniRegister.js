@@ -130,7 +130,7 @@ function Register() {
     };
 
     try {
-      const response = await axios.post('http://localhost:5000/api/universities/register', fullFormData, {
+      const response = await axios.post('http://https://district-internship-portal-3.onrender.com/api/universities/register', fullFormData, {
         headers: {
           'Content-Type': 'application/json',
         },

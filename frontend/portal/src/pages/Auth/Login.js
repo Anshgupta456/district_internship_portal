@@ -23,7 +23,7 @@ function Login() {
     //   return;
     // }
     try {
-      const res = await axios.post('http://localhost:5000/api/users/login', { email, password });
+      const res = await axios.post('http://https://district-internship-portal-3.onrender.com/api/users/login', { email, password });
       console.log('Response:', res); // Debugging statement
 
       if (res.status === 404) {

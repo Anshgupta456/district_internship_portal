@@ -12,7 +12,7 @@ const Admin = () => {
 
   useEffect(() => {
     if (profileId) {
-      axios.get(`http://localhost:5000/api/government/${profileId}`)
+      axios.get(`http://https://district-internship-portal-3.onrender.com/api/government/${profileId}`)
         .then(response => {
           setProfileData(response.data);
         })

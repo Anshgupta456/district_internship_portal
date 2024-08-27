@@ -8,7 +8,7 @@ const JobsPosted = ({ job }) => {
 
     const handleApply = async () => {
         try {
-            await axios.post(`http://localhost:5000/api/internjobposts/${job._id}/apply`, {
+            await axios.post(`http://https://district-internship-portal-3.onrender.com/api/internjobposts/${job._id}/apply`, {
                 studentId: profileId
             });
             alert('Application submitted successfully');

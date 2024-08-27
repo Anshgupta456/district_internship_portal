@@ -33,7 +33,7 @@ const EditStudentModal = ({ student, isOpen, onClose, onUpdate }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost:5000/api/students/${student._id}`, formData);
+            await axios.put(`http://https://district-internship-portal-3.onrender.com/api/students/${student._id}`, formData);
             onUpdate(formData);
             onClose();
         } catch (error) {

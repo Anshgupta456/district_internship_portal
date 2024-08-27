@@ -18,21 +18,21 @@ const ResponsesTable = () => {
     const fetchJobPostsAndStudents = async () => {
       try {
         // Fetch job posts for the government user
-        const jobPostsResponse = await axios.get(`http://localhost:5000/api/government/${profileId}`);
+        const jobPostsResponse = await axios.get(`http://https://district-internship-portal-3.onrender.com/api/government/${profileId}`);
         const jobPosts = jobPostsResponse.data.jobPosts;
 
         // Create a set to avoid duplicate student IDs
         const studentIds = new Set();
 
         // Fetch applied students for each job post
-        const appliedStudentsResponse = await axios.get(`http://localhost:5000/api/internjobposts/${id}/`);
+        const appliedStudentsResponse = await axios.get(`http://https://district-internship-portal-3.onrender.com/api/internjobposts/${id}/`);
         const appliedStudents = appliedStudentsResponse.data.appliedStudents;
 
         // Add each applied student's ID to the set
         appliedStudents.forEach(studentId => studentIds.add(studentId));
 
         // Fetch details for each unique student
-        const studentDataPromises = Array.from(studentIds).map(studentId => axios.get(`http://localhost:5000/api/students/${studentId}`));
+        const studentDataPromises = Array.from(studentIds).map(studentId => axios.get(`http://https://district-internship-portal-3.onrender.com/api/students/${studentId}`));
         const studentDataResponses = await Promise.all(studentDataPromises);
 
         // Extract the student data from the responses
@@ -100,5 +100,5 @@ make a checkbox on selected (Y/N)
 if the checkbox is checked then 
 
 put the student id on this api
-http://localhost:5000/api/internjobposts/${JobId}/select
+http://https://district-internship-portal-3.onrender.com/api/internjobposts/${JobId}/select
 

@@ -15,17 +15,17 @@ const GovResTracker = () => {
       const fetchJobData = async () => {
           try {
               if (role === 'government') {
-                  const jobsResponse = await axios.get(`http://localhost:5000/api/users/profile/government/${id}`);
+                  const jobsResponse = await axios.get(`http://https://district-internship-portal-3.onrender.com/api/users/profile/government/${id}`);
                   const jobIds = jobsResponse.data.jobPosts;
 
                   // Fetch complete job details for each job ID
-                  const jobDetailsPromises = jobIds.map(jobId => axios.get(`http://localhost:5000/api/internJobPosts/${jobId}`));
+                  const jobDetailsPromises = jobIds.map(jobId => axios.get(`http://https://district-internship-portal-3.onrender.com/api/internJobPosts/${jobId}`));
                   const jobDetailsResponses = await Promise.all(jobDetailsPromises);
                   const completeJobDetails = jobDetailsResponses.map(response => response.data);
 
                   setJobs(completeJobDetails);
               } else if (role === 'student') {
-                  const jobsResponse = await axios.get(`http://localhost:5000/api/internJobPosts`);
+                  const jobsResponse = await axios.get(`http://https://district-internship-portal-3.onrender.com/api/internJobPosts`);
                   setJobs(jobsResponse.data);
               }
           } catch (err) {

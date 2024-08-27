@@ -14,7 +14,7 @@ const UniDashboard = () => {
   useEffect(() => {
     const fetchUniversityData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/universities/${profileId}`);
+        const response = await axios.get(`http://https://district-internship-portal-3.onrender.com/api/universities/${profileId}`);
         setUniversity(response.data);
       } catch (error) {
         console.error('Error fetching university data:', error);
@@ -40,7 +40,7 @@ const UniDashboard = () => {
         const downloadURL = await getDownloadURL(storageRef);
 
         // Update the university's profile image URL on the server
-        await axios.put(`http://localhost:5000/api/universities/profile-image/${profileId}`, { profileImage: downloadURL });
+        await axios.put(`http://https://district-internship-portal-3.onrender.com/api/universities/profile-image/${profileId}`, { profileImage: downloadURL });
 
         // Update the state with the new profile image URL
         setUniversity(prevState => ({

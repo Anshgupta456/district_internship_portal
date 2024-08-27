@@ -1,0 +1,145 @@
+[debug] [2024-08-27T08:15:10.263Z] ----------------------------------------------------------------------
+[debug] [2024-08-27T08:15:10.271Z] Command:       /home/ravinder/.nvm/versions/node/v20.10.0/bin/node /home/ravinder/.nvm/versions/node/v20.10.0/bin/firebase init
+[debug] [2024-08-27T08:15:10.272Z] CLI Version:   13.11.4
+[debug] [2024-08-27T08:15:10.273Z] Platform:      linux
+[debug] [2024-08-27T08:15:10.273Z] Node Version:  v20.10.0
+[debug] [2024-08-27T08:15:10.274Z] Time:          Tue Aug 27 2024 13:45:10 GMT+0530 (India Standard Time)
+[debug] [2024-08-27T08:15:10.274Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-08-27T08:15:10.283Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2024-08-27T08:15:10.451Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-08-27T08:15:10.452Z] > authorizing via signed-in user (raviarya4542@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/ravinder/Desktop/dev/portalwithUI/portall/portal/frontend/portal
+
+[debug] [2024-08-27T08:15:15.182Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2024-08-27T08:15:15.184Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-08-27T08:15:21.494Z] > refreshing access token with scopes: []
+[debug] [2024-08-27T08:15:21.499Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2024-08-27T08:15:21.499Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-08-27T08:15:22.861Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2024-08-27T08:15:22.862Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2024-08-27T08:15:22.877Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2024-08-27T08:15:25.135Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-08-27T08:15:25.135Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Don't want to scroll through all your projects? If you know your project ID, you can initialize it directly using firebase init --project <project_id>.
+ 
+[info] i  Using project govovle (govovle) 
+[info] 
+=== Hosting Setup
+[debug] [2024-08-27T08:15:46.485Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/govovle [none]
+[debug] [2024-08-27T08:15:47.402Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/govovle 200
+[debug] [2024-08-27T08:15:47.402Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/govovle {"projectId":"govovle","projectNumber":"31073665023","displayName":"govovle","name":"projects/govovle","resources":{"hostingSite":"govovle"},"state":"ACTIVE","etag":"1_cff1d23f-5f22-48f1-8557-53fd9a81d3c2"}
+[debug] [2024-08-27T08:16:26.975Z] SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at findDependency (/home/ravinder/.nvm/versions/node/v20.10.0/lib/node_modules/firebase-tools/lib/frameworks/utils.js:188:23)
+    at discover (/home/ravinder/.nvm/versions/node/v20.10.0/lib/node_modules/firebase-tools/lib/frameworks/vite/index.js:44:71)
+    at /home/ravinder/.nvm/versions/node/v20.10.0/lib/node_modules/firebase-tools/lib/frameworks/vite/index.js:36:69
+    at discover (/home/ravinder/.nvm/versions/node/v20.10.0/lib/node_modules/firebase-tools/lib/frameworks/index.js:47:38)
+    at async doSetup (/home/ravinder/.nvm/versions/node/v20.10.0/lib/node_modules/firebase-tools/lib/init/features/hosting/index.js:54:11)
+    at async init (/home/ravinder/.nvm/versions/node/v20.10.0/lib/node_modules/firebase-tools/lib/init/index.js:39:9)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2024-08-27T08:16:40.729Z] ----------------------------------------------------------------------
+[debug] [2024-08-27T08:16:40.744Z] Command:       /home/ravinder/.nvm/versions/node/v20.10.0/bin/node /home/ravinder/.nvm/versions/node/v20.10.0/bin/firebase init
+[debug] [2024-08-27T08:16:40.746Z] CLI Version:   13.11.4
+[debug] [2024-08-27T08:16:40.747Z] Platform:      linux
+[debug] [2024-08-27T08:16:40.748Z] Node Version:  v20.10.0
+[debug] [2024-08-27T08:16:40.749Z] Time:          Tue Aug 27 2024 13:46:40 GMT+0530 (India Standard Time)
+[debug] [2024-08-27T08:16:40.750Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-08-27T08:16:40.777Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-08-27T08:16:40.780Z] > authorizing via signed-in user (raviarya4542@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/ravinder/Desktop/dev/portalwithUI/portall/portal/frontend/portal
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-08-27T08:16:44.801Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2024-08-27T08:16:46.861Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-08-27T08:16:46.864Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Don't want to scroll through all your projects? If you know your project ID, you can initialize it directly using firebase init --project <project_id>.
+ 
+[info] i  Using project govovle (govovle) 
+[info] 
+=== Hosting Setup
+[debug] [2024-08-27T08:16:51.467Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/govovle [none]
+[debug] [2024-08-27T08:16:52.036Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/govovle 200
+[debug] [2024-08-27T08:16:52.037Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/govovle {"projectId":"govovle","projectNumber":"31073665023","displayName":"govovle","name":"projects/govovle","resources":{"hostingSite":"govovle"},"state":"ACTIVE","etag":"1_cff1d23f-5f22-48f1-8557-53fd9a81d3c2"}
+[debug] [2024-08-27T08:17:03.680Z] SyntaxError: Unexpected end of JSON input
+    at JSON.parse (<anonymous>)
+    at findDependency (/home/ravinder/.nvm/versions/node/v20.10.0/lib/node_modules/firebase-tools/lib/frameworks/utils.js:188:23)
+    at getAstroVersion (/home/ravinder/.nvm/versions/node/v20.10.0/lib/node_modules/firebase-tools/lib/frameworks/astro/utils.js:39:45)
+    at discover (/home/ravinder/.nvm/versions/node/v20.10.0/lib/node_modules/firebase-tools/lib/frameworks/astro/index.js:17:49)
+    at discover (/home/ravinder/.nvm/versions/node/v20.10.0/lib/node_modules/firebase-tools/lib/frameworks/index.js:47:38)
+    at async doSetup (/home/ravinder/.nvm/versions/node/v20.10.0/lib/node_modules/firebase-tools/lib/init/features/hosting/index.js:54:11)
+    at async init (/home/ravinder/.nvm/versions/node/v20.10.0/lib/node_modules/firebase-tools/lib/init/index.js:39:9)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2024-08-27T08:18:17.695Z] ----------------------------------------------------------------------
+[debug] [2024-08-27T08:18:17.707Z] Command:       /home/ravinder/.nvm/versions/node/v20.10.0/bin/node /home/ravinder/.nvm/versions/node/v20.10.0/bin/firebase init
+[debug] [2024-08-27T08:18:17.709Z] CLI Version:   13.11.4
+[debug] [2024-08-27T08:18:17.710Z] Platform:      linux
+[debug] [2024-08-27T08:18:17.711Z] Node Version:  v20.10.0
+[debug] [2024-08-27T08:18:17.711Z] Time:          Tue Aug 27 2024 13:48:17 GMT+0530 (India Standard Time)
+[debug] [2024-08-27T08:18:17.712Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-08-27T08:18:17.736Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-08-27T08:18:17.738Z] > authorizing via signed-in user (raviarya4542@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /home/ravinder/Desktop/dev/portalwithUI/portall/portal/frontend/portal
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-08-27T08:18:21.892Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2024-08-27T08:18:23.718Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-08-27T08:18:23.718Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Don't want to scroll through all your projects? If you know your project ID, you can initialize it directly using firebase init --project <project_id>.
+ 
+[info] i  Using project govovle (govovle) 
+[info] 
+=== Hosting Setup
+[debug] [2024-08-27T08:18:29.105Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/govovle [none]
+[debug] [2024-08-27T08:18:29.837Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/govovle 200
+[debug] [2024-08-27T08:18:29.838Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/govovle {"projectId":"govovle","projectNumber":"31073665023","displayName":"govovle","name":"projects/govovle","resources":{"hostingSite":"govovle"},"state":"ACTIVE","etag":"1_cff1d23f-5f22-48f1-8557-53fd9a81d3c2"}

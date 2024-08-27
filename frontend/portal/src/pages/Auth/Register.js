@@ -14,7 +14,7 @@ function Register({ history }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/users/register', { name, email, password, role });
+      await axios.post('http://https://district-internship-portal-3.onrender.com/api/users/register', { name, email, password, role });
       navigate('/login');
     } catch (err) {
       console.error(err);

@@ -118,8 +118,8 @@ function StudentRegister() {
     };
 
     const endpoint = role === 'university'
-      ? 'http://localhost:5000/api/universities/students/register'
-      : 'http://localhost:5000/api/students/register';
+      ? 'http://https://district-internship-portal-3.onrender.com/api/universities/students/register'
+      : 'http://https://district-internship-portal-3.onrender.com/api/students/register';
 
     try {
       await axios.post(endpoint, fullFormData, {

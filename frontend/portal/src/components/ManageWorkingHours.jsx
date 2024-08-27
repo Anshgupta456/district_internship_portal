@@ -11,7 +11,7 @@ const ManageWorkingHours = () => {
         if(!profileId){
             return;
         }
-        const response = await axios.get(`http://localhost:5000/api/government/selected-students/${profileId}`);
+        const response = await axios.get(`http://https://district-internship-portal-3.onrender.com/api/government/selected-students/${profileId}`);
         setStudents(response.data.jobPosts.flatMap(jobPost => jobPost.selectedStudents));
       } catch (error) {
         console.error('Error fetching selected students:', error);
@@ -23,7 +23,7 @@ const ManageWorkingHours = () => {
 
   const updateWorkingHours = async (studentId, newHours) => {
     try {
-      await axios.patch(`http://localhost:5000/api/students/working-hours/${studentId}`, { workingHours: newHours });
+      await axios.patch(`http://https://district-internship-portal-3.onrender.com/api/students/working-hours/${studentId}`, { workingHours: newHours });
       setStudents(students.map(student => student._id === studentId ? { ...student, workingHours: newHours } : student));
     } catch (error) {
       console.error('Error updating working hours:', error);

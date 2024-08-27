@@ -17,7 +17,7 @@ const EditGovModal = ({ profileData, isOpen, onClose, onUpdate }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:5000/api/government/${profileData._id}`, formData);
+      const response = await axios.put(`http://https://district-internship-portal-3.onrender.com/api/government/${profileData._id}`, formData);
       onUpdate(response.data);
       onClose();
     } catch (error) {

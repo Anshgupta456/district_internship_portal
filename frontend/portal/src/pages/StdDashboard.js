@@ -17,14 +17,14 @@ const StdDashboard = () => {
     useEffect(() => {
         const fetchProfileData = async () => {
             try {
-                const profileResponse = await axios.get(`http://localhost:5000/api/students/${profileId}`);
+                const profileResponse = await axios.get(`http://https://district-internship-portal-3.onrender.com/api/students/${profileId}`);
                 const studentData = profileResponse.data;
                 setStudent(studentData);
 
-                const appliedJobsResponse = await axios.get(`http://localhost:5000/api/students/${profileId}`);
+                const appliedJobsResponse = await axios.get(`http://https://district-internship-portal-3.onrender.com/api/students/${profileId}`);
                 const jobIds = appliedJobsResponse.data.appliedJobs.map(job => job.jobId);
 
-                const jobDetailsPromises = jobIds.map(jobId => axios.get(`http://localhost:5000/api/internjobposts/${jobId}`));
+                const jobDetailsPromises = jobIds.map(jobId => axios.get(`http://https://district-internship-portal-3.onrender.com/api/internjobposts/${jobId}`));
                 const jobDetailsResponses = await Promise.all(jobDetailsPromises);
                 const jobDetails = jobDetailsResponses.map(response => response.data);
                 
@@ -63,7 +63,7 @@ const StdDashboard = () => {
                 const downloadURL = await getDownloadURL(storageRef);
                 
                 // Update the student's profile picture URL
-                await axios.put(`http://localhost:5000/api/
+                await axios.put(`http://https://district-internship-portal-3.onrender.com/api/
                 /pfp/${profileId}`, { profileImage: downloadURL });
                 
                 // Update the state
