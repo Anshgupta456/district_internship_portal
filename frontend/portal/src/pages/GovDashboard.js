@@ -15,7 +15,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (profileId) {
-      axios.get(`http://https://district-internship-portal-3.onrender.com/api/government/${profileId}`)
+      axios.get(`http://localhost:5000/api/government/${profileId}`)
         .then(response => {
           setProfileData(response.data);
         })
@@ -51,7 +51,7 @@ const Dashboard = () => {
         const downloadURL = await getDownloadURL(storageRef);
         
         // Update the government's profile picture URL
-        await axios.put(`http://https://district-internship-portal-3.onrender.com/api/government/profile-image/${profileId}`, { profileImage: downloadURL });
+        await axios.put(`http://localhost:5000/api/government/profile-image/${profileId}`, { profileImage: downloadURL });
         
         // Update the state
         setProfileData(prevState => ({
@@ -83,7 +83,7 @@ const Dashboard = () => {
             <label htmlFor="upload-button">
               <img
                 className="w-full h-full rounded-full cursor-pointer"
-                src={profileData ? profileData.profilePicture : pfp}
+                src={profileData.profileImage || pfp}
                 alt="Profile"
               />
             </label>
